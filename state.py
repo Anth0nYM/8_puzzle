@@ -6,15 +6,12 @@ import os
 
 def generate_random_state(seed=None):
     random.seed(seed)
-
-    # Gerando numeros aleatorios
     numbers = list(range(10))
     random.shuffle(numbers)
 
-    # Criando a matriz NumPy
     random_state = np.array(numbers[:9]).reshape(3, 3)
-
     return random_state
+
 
 def generate_solved_state(type):
     if type == 1:
@@ -23,6 +20,7 @@ def generate_solved_state(type):
     elif type == 2:
         state = np.array([1, 2, 3, 4, 5, 6, 7, 8, 0]).reshape(3, 3)
         return state
+
 
 def generate_mock_state(type):
     if type == 1:
@@ -34,6 +32,7 @@ def generate_mock_state(type):
     elif type == 3:
         state = np.array([3, 2, 0, 6, 1, 5, 7, 4, 8]).reshape(3, 3)
         return state
+
 
 def generate_children(state):
     # Encontrando a posição do zero
@@ -59,10 +58,16 @@ def generate_children(state):
     return children
 
 # Funções auxiliares
+
+
 def swap_values(state, pos1, pos2):
     state[pos1], state[pos2] = state[pos2], state[pos1]
+
+
 def to_tuple(state):
     return tuple(map(tuple, state))
+
+
 def save_path(path, filename):
     os.makedirs(os.path.dirname(filename), exist_ok=True)
     with open(filename, "w") as f:

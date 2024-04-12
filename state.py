@@ -2,11 +2,13 @@ import numpy as np
 import random
 from copy import deepcopy
 import os
+import matplotlib.pyplot as plt
+from matplotlib.patches import Rectangle
 
 
 def generate_random_state(seed=None):
     random.seed(seed)
-    numbers = list(range(10))
+    numbers = list(range(0,9))
     random.shuffle(numbers)
 
     random_state = np.array(numbers[:9]).reshape(3, 3)
@@ -31,6 +33,9 @@ def generate_mock_state(type):
         return state
     elif type == 3:
         state = np.array([3, 2, 0, 6, 1, 5, 7, 4, 8]).reshape(3, 3)
+        return state
+    elif type == 4:
+        state = np.array([8, 2, 3, 4, 5, 6, 7, 1, 0]).reshape(3, 3)
         return state
 
 
@@ -73,3 +78,23 @@ def save_path(path, filename):
     with open(filename, "w") as f:
         for node in path:
             f.write(f"{node}\n")
+
+def display(state):
+    fig, ax = plt.subplots()
+
+    for i in range(3):
+        for j in range(3):
+            if state[i, j] != 0:
+                ax.add_patch(Rectangle((j, 2 - i), 1, 1, color='lightblue', alpha=0.5))  
+                ax.text(j + 0.5, 2 - i + 0.5, str(state[i, j]),
+                        ha='center', va='center', fontsize=40)
+
+    ax.set_xticks(np.arange(4))
+    ax.set_yticks(np.arange(4))
+    ax.set_xticklabels(np.arange(4))
+    ax.set_yticklabels(np.arange(4, 0, -1))
+    ax.grid(True)
+    ax.set_aspect('equal', adjustable='box')
+    ax.set_title('Jogo dos 8 números')
+
+    plt.show()

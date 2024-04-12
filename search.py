@@ -39,9 +39,12 @@ def dfs(initial_state, goal_state):
     return None
 
 
-initial_state = state.generate_random_state(42)
+initial_state = state.generate_mock_state(1)
 goal_state = state.generate_solved_state(2)
+print(initial_state)
+#state.display(initial_state)
 path_bfs = bfs(initial_state, goal_state)
-path_dfs = dfs(initial_state, goal_state)
+#path_dfs = dfs(initial_state, goal_state)
 # print(len(path_bfs))
-print(len(path_dfs))
+for st in path_bfs:
+    state.display(st)
